@@ -1,3 +1,4 @@
-{
-    type: ''
-}
+// {
+//     type: 'ADD_MOVIES'
+//     movies: []
+// }
