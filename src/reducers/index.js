@@ -14,7 +14,7 @@ const initialMoveieState = {
 }
 
 export function movies(state = initialMoveieState, action) {
-    console.log('MOVIES REDUCER', action);
+    // console.log('MOVIES REDUCER', action);
     // if(action.type === ADD_MOVIES){
     //     return {
     //         ...state,
@@ -56,7 +56,7 @@ const initialSearchState = {
 };
 
 export function search(state = initialSearchState, action) {
-    console.log("SEARCH REDUCER");
+    // console.log("SEARCH REDUCER");
     return state;
 }
 
