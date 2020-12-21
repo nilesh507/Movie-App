@@ -1,10 +1,10 @@
 import movies from "../reducers";
 
 //Action types
-export const ADD_MOVIES = 'ADD_MOVIES';
-export const ADD_TO_FAVOURITE = 'ADD_TO_FAVOURITE';
-export const REMOVE_FROM_FAVOURITE = 'REMOVE_FROM_FAVOURITE';
-export const SET_SHOW_FAVOURITES = 'SET_SHOW_FAVOURITES';
+export const ADD_MOVIES = "ADD_MOVIES";
+export const ADD_TO_FAVOURITE = "ADD_TO_FAVOURITE";
+export const REMOVE_FROM_FAVOURITE = "REMOVE_FROM_FAVOURITE";
+export const SET_SHOW_FAVOURITES = "SET_SHOW_FAVOURITES";
 
 //Action creators
 export function addMovies (movies) {
