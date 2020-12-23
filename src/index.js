@@ -1,4 +1,6 @@
-import React, { createContext } from 'react';
+import * as React from 'react'
+
+import { createContext } from 'react';
 import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
@@ -55,8 +57,46 @@ class Provider extends React.Component {
         )
     }
 }
-// console.log('BEFORE STATE-->', store.getState());
 
+//const connectedAppComponent = connect (callback)(App);
+export function connect(callback) {
+    return function (Component) {
+        class ConnectedComponent extends React.Component {
+            constructor(props) {
+                super(props);
+                this.unsubscribe = this.props.store.subscribe(() => {
+                    console.log('Updated');
+                    this.forceUpdate();
+                });
+            }
+
+            compontntWillUnmount () {
+                this.unsubscribe();
+            }
+
+            render() {
+                const { store } = this.props;
+                const state = store.getState();
+                const dataToBePassedAsProps = callback(state);
+                return <Component dispatch={store.dispatch} {...dataToBePassedAsProps}/>
+            }
+        }
+
+        class ConnectedComponentWrapper extends React.Component {
+            render() {
+                return (
+                    <StoreContext.Consumer>
+                        {(store) => <ConnectedComponent store={store} />}
+                    </StoreContext.Consumer>
+                )
+            }
+        }
+        return ConnectedComponentWrapper;
+
+    };
+}
+
+//update store by dispatching actions
 // store.dispatch({
 //     type: 'ADD_MOVIES',
 //     movies: [{name: "Superman"}]
