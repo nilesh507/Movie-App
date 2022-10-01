@@ -21,7 +21,7 @@ class Navbar extends React.Component{
         });
     }
 
-     handleSearch = () => {
+    handleSearch = () => {
         const { searchText } = this.state;
         
         this.props.dispatch(handleMovieSearch(searchText));
