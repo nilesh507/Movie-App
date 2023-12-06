@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { addMovieToList, handleMovieSearch } from '../actions'
+import { addMovieToList, handleMovieSearch, showSearchResults } from '../actions'
 // import { connect, StoreContext } from '../index'
 
 
@@ -13,6 +13,23 @@ class Navbar extends React.Component{
             searchText: ''
         };
     }
+    
+    //
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.handleKeyDown);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.handleKeyDown);
+    }
+
+    handleKeyDown = (e) => {
+        if (e.keyCode === 27) { // 27 is the key code for the Escape key
+            this.props.dispatch(showSearchResults());
+        }
+    }
+    //
 
     handleAddToMovies = (movie) => {
         this.props.dispatch(addMovieToList(movie));
@@ -31,7 +48,9 @@ class Navbar extends React.Component{
         this.setState({
             searchText: event.target.value
         })
+        this.handleSearch();
     }
+
 
     render() {
         //destructured the result to the movie name 
@@ -39,7 +58,14 @@ class Navbar extends React.Component{
         return (
             <div className="nav">
                 <div className="search-container">
-                    <input onChange={this.handleChange} />
+                    <input 
+                        onChange={this.handleChange} 
+                        onKeyPress={(event) => {
+                            if (event.key === 'Enter') {
+                                this.handleAddToMovies(movie);
+                            }
+                        }}
+                    />
                     <button id="search-btn" onClick={this.handleSearch}>Search</button>
 
                     {showSearchResults  &&

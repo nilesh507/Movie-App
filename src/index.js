@@ -42,7 +42,7 @@ const logger = ({ dispatch, getState }) => (next) => (action) => {
 // }
 
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
-console.log('store',store.getState());
+console.log('initial store state:',store.getState());
 
 // export const StoreContext = createContext();
 
